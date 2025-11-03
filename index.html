@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> <link rel="icon" type="image/png" href="assets/favicon.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mykola - Game Dev Portfolio</title>
+  <meta name="description" content="C++/UE5 Game Developer portfolio - projects, about, contact." />
+  <script>document.documentElement.classList.add('dark');</script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="hdr">
+    <a href="#top" class="brand">
+      <span class="badge">
+        <img src="assets/faviconh.png" alt="Mykola logo" class="badge-img">
+      </span>
+      <span class="brand-text">Mykola <span class="muted">/ Game Dev</span></span>
+    </a>
+    <nav class="nav">
+      <a href="#projects">Projects</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a class="btn-primary" href="assets/KozorizCV.pdf" target="_blank" rel="noopener">
+  <!-- icon is optional -->
+  <span aria-hidden="true">📄</span> Resume
+</a>
+      <button id="themeToggle" class="btn-ghost">Theme</button>
+    </nav>
+    <button id="menuToggle" class="menu-toggle" aria-label="Open menu">☰</button>
+  </header>
+
+  <div id="drawer" class="drawer" aria-hidden="true">
+    <a href="#projects" class="drawer-link">Projects</a>
+    <a href="#about" class="drawer-link">About</a>
+    <a href="#contact" class="drawer-link">Contact</a>
+    <button id="themeToggleMobile" class="btn-ghost">Theme</button>
+  </div>
+
+  <section id="top" class="hero">
+    <div class="hero-accent"></div>
+    <div class="hero-inner">
+      <div class="pill">
+        <span class="pill-dot"></span>
+        <span>Available for freelance & remote</span>
+      </div>
+      <h1 class="hero-title">
+        Game Dev who ships <span class="grad">performant</span> systems & striking UI.
+      </h1>
+      <p class="lead">
+        From C++ gameplay architecture to UMG micro-interactions - I focus on readable code, smooth flows, and punchy feel. Horror prototypes and co-op sandboxes are my playground.
+      </p>
+      <div class="hero-cta">
+        <a class="btn" href="#contact">Contact</a>
+        <a class="btn" href="assets/KozorizCV.pdf" target="_blank" rel="noopener">Resume (PDF)</a>
+        <a class="btn-ghost" href="#" id="githubLink">GitHub</a>
+        <a class="btn-ghost" href="#" id="itchLink">Itch.io</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="section">
+    <div class="section-head">
+      <div class="kicker">Portfolio</div>
+      <h2 class="section-title">Featured projects</h2>
+    </div>
+    <div id="projectsGrid" class="grid"></div>
+  </section>
+
+  <section id="about" class="section">
+    <div class="section-head">
+      <div class="kicker">Who I am</div>
+      <h2 class="section-title">About</h2>
+    </div>
+    <div class="about-grid">
+      <div>
+        <p class="muted-p">
+          I am a C++ Unreal Engine developer focused on UI/UX systems, gameplay features, and performance-minded architecture. I care about animation timing, input feel, and clean abstractions that future teammates can extend fast.
+        </p>
+        <ul class="bullets">
+          <li>UE5 • C++ • Blueprints</li>
+          <li>Behavior Trees • Perception • AI</li>
+          <li>Replication • GAS basics</li>
+          <li>UMG • Slate • Widgets</li>
+          <li>Profiling • Optimization</li>
+          <li>Builds • Packaging • CI</li>
+        </ul>
+      </div>
+      <aside class="card">
+        <div class="card-row">
+          <span class="badge small">
+        <img src="assets/favicon.png" alt="" class="badge-img" />
+          </span>
+          <div>
+            <div class="card-title">Currently</div>
+            <div class="muted-p">Working on side project as an indie dev</div>
+          </div>
+        </div>
+        <div class="card-meta">
+          <div><span class="muted">Location:</span> Greece → EU remote</div>
+          <div><span class="muted">Languages:</span> EN / UA / RU</div>
+          <div><span class="muted">Work:</span> Open for work</div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Contact (simplified) -->
+  <section id="contact" class="section">
+    <div class="section-head">
+      <div class="kicker">Contact</div>
+      <h2 class="section-title">Let’s build something</h2>
+    </div>
+    <div class="contact-grid">
+      <div class="copy-row">
+  <span class="muted-p">Reach out any time - I usually respond within a hour with clear next steps.</span>
+
+  <!-- Copyable email (no mailto) -->
+  <div class="copy-wrap">
+    <code id="emailText" class="copy-chip" aria-label="Email address">whateverkaicodes@gmail.com</code>
+    <button id="copyBtn" class="btn-ghost" type="button">Copy</button>
+    <span id="copyNote" class="copy-note" aria-live="polite" hidden>Copied</span>
+  </div>
+</div>
+
+    </div>
+  </section>
+
+  <footer class="ftr">
+    <div>© <span id="y"></span> Mykola Kozoriz</div>
+    <div class="ftr-links">
+      <a href="#top">Back to top</a>
+      <a id="githubLinkFooter" href="#">GitHub</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

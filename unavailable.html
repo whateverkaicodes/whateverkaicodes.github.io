@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> <link rel="icon" type="image/png" href="assets/favicon.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Oops — Not Available</title>
+  <script>document.documentElement.classList.add('dark');</script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    .center { min-height: 80vh; display: grid; place-items: center; padding: 24px; }
+    .oops { max-width: 720px; }
+    .emoji { font-size: 48px; line-height: 1; }
+    .oops h1 { margin: 8px 0 4px; font-size: clamp(28px, 4vw, 40px); }
+    .oops p { color: var(--muted); }
+    .row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+  </style>
+</head>
+<body>
+  <header class="hdr">
+    <a href="index.html#top" class="brand"><span class="badge">GD</span><span class="brand-text">Mykola <span class="muted">/ Game Dev</span></span></a>
+    <nav class="nav">
+      <a href="index.html#projects">Projects</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#contact">Contact</a>
+      <a class="btn-ghost" href="index.html#projects">Back</a>
+    </nav>
+    <a class="menu-toggle" href="index.html#projects" aria-label="Back">←</a>
+  </header>
+
+  <main class="center">
+    <div class="card oops">
+      <div class="emoji">🫣</div>
+      <h1 id="title">Not available</h1>
+      <p id="reason">This item is private or under NDA. Code isn't public.</p>
+      <div class="row">
+        <a class="btn" href="index.html#projects">Back to projects</a>
+        <a class="btn-ghost" href="index.html#contact">Contact me</a>
+
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Fills the title with the project name from query string
+    const params = new URLSearchParams(location.search);
+    const project = params.get("project");
+    const type = params.get("type") || "code";
+    if (project) {
+      document.getElementById("title").textContent =
+        `${type === 'code' ? 'Code' : 'Live'} for “${project}” is not public`;
+    }
+  </script>
+</body>
+</html>
