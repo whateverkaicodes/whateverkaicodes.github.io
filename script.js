@@ -1,7 +1,7 @@
 /* Minimal JS with default dark theme and simple rendering */
 const PROFILE = {
   email: "whateverkaicodes@gmail.com",
-  github: "https://github.com/glaiveq",
+  github: "https://github.com/whateverkaicodes",
   itch: "https://whatkaiwants.itch.io/",
   linkedin: "https://www.linkedin.com/in/mykola-kozoriz-86a937250/",
   x: "https://x.com/"
