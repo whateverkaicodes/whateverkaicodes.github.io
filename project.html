@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> <link rel="icon" type="image/png" href="assets/favicon.png">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Project - Details</title>
+  <script>document.documentElement.classList.add('dark');</script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Detail page bits */
+    .detail { max-width: 1100px; margin: 32px auto; padding: 0 20px; display: grid; gap: 24px; }
+    .detail-head { display: grid; gap: 8px; }
+    .detail-title { font-size: clamp(26px, 4vw, 48px); font-weight: 800; line-height: 1.05; }
+    .meta { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    .meta .chip { font-size:12px; padding:6px 10px; border-radius:999px; border:1px solid var(--border); color: var(--muted); }
+    .detail-media { border-radius: 16px; overflow: hidden; border:1px solid var(--border); background:#0f172a; }
+    .detail-media img, .detail-media video { width:100%; height:auto; display:block; }
+    .cols { display:grid; gap:24px; grid-template-columns:1fr; }
+    @media (min-width: 900px){ .cols{ grid-template-columns: 2fr 1fr; } }
+    .prose p { color: var(--muted); }
+    .bul { margin: 0; padding-left: 18px; color: var(--muted); }
+    .bul li { margin: 6px 0; }
+    .toolbar { display:flex; gap:10px; flex-wrap:wrap; }
+  </style>
+</head>
+<body>
+  <header class="hdr">
+    <a href="index.html#top" class="brand">
+      <span class="badge"><img src="assets/faviconh.png" alt="" class="badge-img"></span>
+      <span class="brand-text">Mykola <span class="muted">/ Game Dev</span></span>
+    </a>
+    <nav class="nav">
+      <a href="index.html#projects">Projects</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#contact">Contact</a>
+      <button id="themeToggle" class="btn-ghost">Theme</button>
+    </nav>
+    <button id="menuToggle" class="menu-toggle" aria-label="Open menu">☰</button>
+  </header>
+
+  <main id="root" class="detail"></main>
+
+  <footer class="ftr">
+    <div>© <span id="y"></span> Mykola Kozoriz</div>
+    <div class="ftr-links">
+      <a href="index.html#projects">Back to projects</a>
+      <a id="githubLinkFooter" href="#">GitHub</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="projects.js"></script>
+</body>
+</html>

@@ -174,3 +174,23 @@ body { margin: 0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto
 }
 
 html { scroll-behavior: smooth; }
+
+.media-link { display:block; }
+.proj h3 a:hover { text-decoration: underline; }
+.detail-media { min-height: 240px; }
+
+.btn-demo{
+  background: linear-gradient(135deg, var(--accent1), var(--accent2));
+  color:#fff;
+  padding:10px 14px;
+  border-radius:999px;
+  border:0;
+  font-weight:700;
+  display:inline-flex; align-items:center; gap:8px;
+  box-shadow:0 6px 18px rgba(0,0,0,.25);
+}
+.btn-demo:hover{ filter: brightness(.97); }
+.btn-demo:focus-visible{
+  outline:2px solid color-mix(in oklab, #fff 60%, transparent);
+  outline-offset:2px;
+}
