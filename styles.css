@@ -194,3 +194,24 @@ html { scroll-behavior: smooth; }
   outline:2px solid color-mix(in oklab, #fff 60%, transparent);
   outline-offset:2px;
 }
+
+
+.detail-media video,
+.detail-media img {
+  width: 100%;
+  height: auto;
+  display: block;
+  max-height: 560px;
+  object-fit: cover;
+}
+
+.grid .card video,
+.grid .card img {
+  width: 100%;
+  height: auto;
+  max-height: 360px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+

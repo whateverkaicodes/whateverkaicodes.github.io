@@ -60,18 +60,21 @@
       return;
     }
 
-    // Media block
-    let mediaHTML = "";
+        // --- HERO media ---
+    let hero;
     if (data.gallery && data.gallery.length) {
-      const g0 = data.gallery[0];
-      mediaHTML = g0.type === "video"
-        ? `<video src="${g0.src}" autoplay muted loop playsinline></video>`
-        : `<img src="${g0.src}" alt="${g0.alt || data.title}">`;
-    } else {
-      mediaHTML = data.mediaType === "video"
-        ? `<video src="${data.mediaSrc}" autoplay muted loop playsinline></video>`
-        : `<img src="${data.mediaSrc}" alt="${data.title}">`;
+      hero = data.gallery.find(it => it.type === "image") || data.gallery[0];
     }
+    if (!hero) {
+      hero = data.mediaType === "video"
+        ? { type: "video", src: data.mediaSrc, alt: data.title }
+        : { type: "image", src: data.mediaSrc, alt: data.title };
+    }
+
+    const mediaHTML = hero.type === "video"
+      ? `<video src="${hero.src}" autoplay muted loop playsinline></video>`
+      : `<img src="${hero.src}" alt="${hero.alt || data.title}">`;
+
 
     // Stack chips
     const stack = (data.stack || []).map(t => `<span class="chip">${t}</span>`).join("");

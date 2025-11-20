@@ -43,7 +43,8 @@ Performance and polish mattered. I removed heavy widget bindings, pushed assets 
       "Stable performance: fewer ticks, less binding overhead, async assets."
     ],
     gallery: [
-      { type: "image", src: "assets/TTPreview.jpg", alt: "Settings widget" }
+      { type: "image", src: "assets/TTPreview.jpg", alt: "Settings widget" },
+      { type: "video", src: "assets/characterselect.mp4", alt: "Gameplay preview" }
     ]
   }
 ];
