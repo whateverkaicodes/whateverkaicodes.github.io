@@ -45,7 +45,6 @@ Performance and polish mattered. I removed heavy widget bindings, pushed assets 
     gallery: [
       { type: "video", src: "assets/characterselect.mp4", alt: "Gameplay preview" },
       { type: "image", src: "assets/TTPreview.jpg", alt: "Settings widget" },
-      { type: "image", src: "assets/TTPreview1.jpg", alt: "Settings widget" },
       { type: "image", src: "assets/TTPreview2.jpg", alt: "Settings widget" },
     ]
   }
