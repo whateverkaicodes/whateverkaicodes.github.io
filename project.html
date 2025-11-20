@@ -24,6 +24,13 @@
     .toolbar { display:flex; gap:10px; flex-wrap:wrap; }
   </style>
 </head>
+<!-- Lightweight video lightbox -->
+<div id="lightbox" class="lightbox" aria-hidden="true">
+  <div class="lb-inner">
+    <button id="lbClose" class="lb-close" aria-label="Close">×</button>
+    <video id="lbVideo" controls playsinline></video>
+  </div>
+</div>
 <body>
   <header class="hdr">
     <a href="index.html#top" class="brand">

@@ -21,7 +21,7 @@ const PROJECTS = [
     longDescription: `
 I handled a big chunk of the game’s UI/UX and also the glue between systems. Settings were built properly in C++/UMG, audio and input with presets and granular overrides-and wired to save/restore so players don’t lose anything. I also set up a clean localization path so every widget/prompt pulls the right string without hacks.
 
-Character selection was a larger feature. We have Feats (perk-style, Dead by Daylight vibe), and I made the whole flow data-driven: a designer drops a character ID into a table and it just appears in the selection with the right UI state and rules - no hand wiring. On top of that I added a radial menu for quick actions and reworked input on Enhanced Input so the selection feels tight and predictable.
+Character selection was a larger feature (first attached media below). We have Feats (perk-style, Dead by Daylight vibe), and I made the whole flow data-driven: a designer drops a character ID into a table and it just appears in the selection with the right UI state and rules - no hand wiring. On top of that I added a radial menu for quick actions and reworked input on Enhanced Input so the selection feels tight and predictable.
 
 Interaction is a standalone gameplay system, not just UI hooks. I built usable actors, prompts and gating rules, trace/overlap checks, cool-downs, and simple state to keep actions deterministic. One example that uses the same core interaction is the “boat between dungeons”: it connects the hub and dungeons via a short travel flow, drives a few world events, and hands off cleanly to loading/teleport logic-while still feeling like a single system to maintain.
 
@@ -43,8 +43,10 @@ Performance and polish mattered. I removed heavy widget bindings, pushed assets 
       "Stable performance: fewer ticks, less binding overhead, async assets."
     ],
     gallery: [
+      { type: "video", src: "assets/characterselect.mp4", alt: "Gameplay preview" },
       { type: "image", src: "assets/TTPreview.jpg", alt: "Settings widget" },
-      { type: "video", src: "assets/characterselect.mp4", alt: "Gameplay preview" }
+      { type: "image", src: "assets/TTPreview1.png", alt: "Settings widget" },
+      { type: "image", src: "assets/TTPreview2.png", alt: "Settings widget" },
     ]
   }
 ];

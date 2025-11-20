@@ -60,9 +60,9 @@
       return;
     }
 
-        // --- HERO media ---
+    // --- HERO media (prefer image so index card never turns into a video) ---
     let hero;
-    if (data.gallery && data.gallery.length) {
+    if (Array.isArray(data.gallery) && data.gallery.length) {
       hero = data.gallery.find(it => it.type === "image") || data.gallery[0];
     }
     if (!hero) {
@@ -75,11 +75,10 @@
       ? `<video src="${hero.src}" autoplay muted loop playsinline></video>`
       : `<img src="${hero.src}" alt="${hero.alt || data.title}">`;
 
-
     // Stack chips
     const stack = (data.stack || []).map(t => `<span class="chip">${t}</span>`).join("");
 
-    // Build multi-paragraph HTML from longDescription/description
+    // Long multi-paragraph description → paragraphs
     const rawDesc = (data.longDescription || data.description || "").trim();
     const descHTML = rawDesc
       ? rawDesc.split(/\n\s*\n/).map(p => `<p>${p}</p>`).join("")
@@ -88,6 +87,38 @@
     // Optional highlights
     const highs = (data.highlights || []).map(li => `<li>${li}</li>`).join("");
 
+    // --- Gallery block (thumbs; video opens lightbox) ---
+    const gallery = Array.isArray(data.gallery) ? data.gallery : [];
+    const galleryHTML = gallery.length ? `
+      <section>
+        <div class="section-head"><div class="kicker">Gallery</div></div>
+        <div class="grid">
+          ${gallery.map((it, idx) => {
+            if (it.type === "video") {
+              // маленький превʼю з відео; кліком відкриваємо лайтбокс
+              return `
+                <div class="card gallery-item" data-kind="video" data-src="${it.src}">
+                  <div style="position:relative;border-radius:12px;overflow:hidden">
+                    <video src="${it.src}" muted loop playsinline
+                           style="display:block;width:100%;max-height:260px;object-fit:cover"></video>
+                    <span style="
+                      position:absolute;right:8px;bottom:8px;padding:4px 8px;border-radius:999px;
+                      background:rgba(0,0,0,.6);color:#fff;font-size:12px;">Play</span>
+                  </div>
+                </div>`;
+            } else {
+              return `
+                <div class="card gallery-item" data-kind="image" data-src="${it.src}">
+                  <img src="${it.src}" alt="${it.alt || ""}"
+                       style="border-radius:12px;width:100%;display:block;object-fit:cover">
+                </div>`;
+            }
+          }).join("")}
+        </div>
+      </section>
+    ` : "";
+
+    // Render page
     root.innerHTML = `
       <section class="detail-head">
         <div class="meta">${stack}</div>
@@ -127,18 +158,94 @@
         </aside>
       </section>
 
-      ${
-        data.gallery && data.gallery.length > 1
-        ? `<section><div class="section-head"><div class="kicker">Gallery</div></div>
-            <div class="grid">
-            ${data.gallery.slice(1).map(it =>
-              it.type === "video"
-                ? `<div class="card"><video src="${it.src}" autoplay muted loop playsinline style="border-radius:12px;"></video></div>`
-                : `<div class="card"><img src="${it.src}" alt="${it.alt || ""}" style="border-radius:12px; width:100%; display:block;"></div>`
-            ).join("")}
-            </div></section>`
-        : ""
-      }
+      ${galleryHTML}
     `;
+
+    // --- Lightbox styles (injected once) ---
+    if (!document.getElementById("lb-styles")) {
+      const st = document.createElement("style");
+      st.id = "lb-styles";
+      st.textContent = `
+        .lb-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.75);display:flex;
+          align-items:center;justify-content:center;z-index:9999;padding:20px;}
+        .lb-sheet{background:#0b0f1a;border:1px solid var(--border,#1f2937);border-radius:16px;
+          max-width: min(1100px, 96vw); width:100%; padding:12px; box-shadow:0 10px 30px rgba(0,0,0,.6);}
+        .lb-media{position:relative; overflow:hidden; border-radius:12px;}
+        .lb-media video,.lb-media img{display:block;width:100%;height:auto;outline:none}
+        .lb-topbar{display:flex;justify-content:flex-end;gap:8px;margin-bottom:8px}
+        .lb-btn{background:#111827;border:1px solid var(--border,#1f2937);padding:6px 12px;border-radius:10px;color:#e5e7eb}
+        .lb-btn:hover{filter:brightness(1.1)}
+      `;
+      document.head.appendChild(st);
+    }
+
+    // --- Lightbox creator ---
+    function openLightbox(kind, src) {
+      const backdrop = document.createElement("div");
+      backdrop.className = "lb-backdrop";
+      backdrop.setAttribute("role", "dialog");
+      backdrop.setAttribute("aria-modal", "true");
+
+      const sheet = document.createElement("div");
+      sheet.className = "lb-sheet";
+
+      const top = document.createElement("div");
+      top.className = "lb-topbar";
+
+      const dl = document.createElement("a");
+      dl.className = "lb-btn";
+      dl.textContent = "Open in new tab";
+      dl.href = src;
+      dl.target = "_blank";
+      dl.rel = "noopener";
+
+      const close = document.createElement("button");
+      close.className = "lb-btn";
+      close.textContent = "Close";
+      close.addEventListener("click", () => backdrop.remove());
+
+      top.appendChild(dl);
+      top.appendChild(close);
+
+      const media = document.createElement("div");
+      media.className = "lb-media";
+
+      if (kind === "video") {
+        const v = document.createElement("video");
+        v.src = src;
+        v.controls = true;
+        v.autoplay = true;
+        v.playsInline = true;
+        media.appendChild(v);
+      } else {
+        const img = document.createElement("img");
+        img.src = src;
+        img.alt = "";
+        media.appendChild(img);
+      }
+
+      sheet.appendChild(top);
+      sheet.appendChild(media);
+      backdrop.appendChild(sheet);
+
+      // close on backdrop click / Esc
+      backdrop.addEventListener("click", (e) => {
+        if (e.target === backdrop) backdrop.remove();
+      });
+      document.addEventListener("keydown", function onEsc(ev){
+        if (ev.key === "Escape") { backdrop.remove(); document.removeEventListener("keydown", onEsc); }
+      });
+
+      document.body.appendChild(backdrop);
+    }
+
+    // Wire gallery click → lightbox
+    document.querySelectorAll(".gallery-item").forEach(el => {
+      el.addEventListener("click", () => {
+        const kind = el.getAttribute("data-kind");
+        const src  = el.getAttribute("data-src");
+        if (src) openLightbox(kind, src);
+      });
+    });
   });
 })();
